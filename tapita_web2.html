@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Tapita — Importada de Argentina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0e0e0e;
+            --white: #fafafa;
+            --yellow: #f5c800;
+            --red: #e03030;
+            --green: #25D366;
+            --blue: #2563eb;
+            --light: #f2f1ee;
+            --border: #0e0e0e;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+
+        /* TICKER */
+        .ticker { background: var(--black); color: var(--yellow); font-family: 'DM Mono', monospace; font-size: 12px; padding: 10px 0; overflow: hidden; white-space: nowrap; border-bottom: 1.5px solid var(--black); }
+        .ticker-inner { display: inline-block; animation: scroll-left 25s linear infinite; }
+        .ticker-inner span { margin: 0 30px; }
+        @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* NAV */
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; border-bottom: 1.5px solid var(--black); position: sticky; top: 0; background: rgba(250, 250, 250, 0.95); z-index: 100; backdrop-filter: blur(10px); }
+        .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: .04em; color: var(--black); text-decoration: none; }
+        .nav-logo span { color: var(--red); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 600; color: var(--black); text-decoration: none; text-transform: uppercase; transition: 0.2s; }
+        .nav-links a:hover { color: var(--red); }
+        .nav-cta { background: var(--black); color: var(--yellow) !important; padding: 10px 20px; border-radius: 2px; font-family: 'DM Mono'; }
+
+        /* HERO */
+        .hero { display: grid; grid-template-columns: 1.2fr 0.8fr; min-height: 85vh; border-bottom: 1.5px solid var(--black); }
+        .hero-left { padding: 60px 5% 60px 40px; display: flex; flex-direction: column; justify-content: center; border-right: 1.5px solid var(--black); }
+        .hero-tag { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono'; font-size: 11px; text-transform: uppercase; margin-bottom: 20px; color: var(--red); font-weight: bold; }
+        .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 8vw, 110px); line-height: 0.9; margin-bottom: 25px; }
+        .hero-title em { font-style: normal; color: var(--red); }
+        .hero-desc { font-size: 18px; line-height: 1.5; max-width: 500px; margin-bottom: 35px; color: #333; }
+        
+        .hero-right { background: var(--light); display: flex; align-items: center; justify-content: center; position: relative; padding: 20px; }
+        .main-img { width: 90%; height: 80%; border: 2px solid var(--black); box-shadow: 15px 15px 0 var(--black); object-fit: cover; background: white; }
+
+        /* GALLERY GRID */
+        .gallery-section { padding: 60px 40px; border-bottom: 1.5px solid var(--black); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .grid-item { border: 1.5px solid var(--black); overflow: hidden; background: white; transition: 0.3s; position: relative; aspect-ratio: 1; }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .grid-item:hover img { transform: scale(1.05); }
+        .grid-item:hover { box-shadow: 8px 8px 0 var(--red); transform: translate(-4px, -4px); }
+
+        /* FEATURES */
+        .features { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1.5px solid var(--black); }
+        .f-item { padding: 40px 30px; border-right: 1.5px solid var(--black); text-align: center; }
+        .f-item:last-child { border-right: none; }
+        .f-icon { font-size: 32px; margin-bottom: 15px; display: block; }
+        .f-title { font-family: 'Bebas Neue'; font-size: 22px; margin-bottom: 10px; }
+
+        /* PRICING & CONTACT */
+        .order-section { display: grid; grid-template-columns: 1fr 1fr; }
+        .pricing-area { padding: 60px 40px; border-right: 1.5px solid var(--black); background: #fff; }
+        .contact-area { padding: 60px 40px; background: var(--black); color: white; }
+        
+        .price-card { border: 2px solid var(--black); padding: 25px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .price-card:hover { background: var(--light); }
+        .qty-label { font-family: 'Bebas Neue'; font-size: 28px; }
+        .price-val { font-family: 'DM Mono'; color: var(--red); font-weight: bold; font-size: 20px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-family: 'DM Mono'; font-size: 12px; color: var(--yellow); margin-bottom: 8px; text-transform: uppercase; }
+        .form-input { width: 100%; padding: 15px; background: #1a1a1a; border: 1px solid #333; color: white; font-family: 'DM Sans'; outline: none; }
+        .form-input:focus { border-color: var(--yellow); }
+
+        .btn-wa { display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--green); color: white; padding: 20px; text-decoration: none; font-weight: bold; font-family: 'DM Mono'; transition: 0.3s; border-radius: 4px; border: none; width: 100%; cursor: pointer; font-size: 16px; }
+        .btn-wa:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero, .order-section { grid-template-columns: 1fr; }
+            .hero-right { order: -1; min-height: 400px; }
+            .features { grid-template-columns: 1fr 1fr; }
+            .f-item { border-bottom: 1.5px solid var(--black); }
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ticker">
+    <div class="ticker-inner">
+        <span>🇦🇷 IMPORTADA DE ARGENTINA</span>
+        <span>✦ PEDIDO MÍNIMO 1.500 UNIDADES</span>
+        <span>✦ DISPONIBLE EN 9 COLORES</span>
+        <span>✦ SIN PÉRDIDA DE GAS</span>
+        <span>✦ PUESTA EN CARACAS</span>
+        <span>🇦🇷 PRODUCTO ORIGINAL LA TAPITA</span>
+        <span>✦ ENVÍOS A TODA VENEZUELA</span>
+    </div>
+</div>
+
+<nav>
+    <a href="#" class="nav-logo">La<span>Tapita</span></a>
+    <div class="nav-links">
+        <a href="#galeria">Galería</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto" class="nav-cta">ORDENAR AHORA</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-left">
+        <div class="hero-tag">● Stock Mayorista disponible</div>
+        <h1 class="hero-title">LA SOLUCIÓN<br><em>DEFINITIVA</em><br>PARA TUS LATAS</h1>
+        <p class="hero-desc">Importamos directamente de Argentina el accesorio que revoluciona el consumo de bebidas. Higiene, ahorro y estilo en un solo clic.</p>
+        <div style="display: flex; gap: 15px;">
+            <a href="#contacto" class="btn-wa" style="width: auto; padding: 15px 30px;">INICIAR PEDIDO</a>
+            <a href="#galeria" style="color: var(--black); text-decoration: none; font-family: 'DM Mono'; align-self: center; font-size: 13px;">VER COLORES ↓</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <img src="https://i.postimg.cc/wxcV51SF/Tapita-lata.jpg" class="main-img" alt="La Tapita Colores">
+    </div>
+</section>
+
+<div class="features">
+    <div class="f-item"><span class="f-icon">🔒</span><div class="f-title">Hermético</div><p style="font-size: 13px; color: #666;">Mantiene el gas por mucho más tiempo.</p></div>
+    <div class="f-item"><span class="f-icon">🧼</span><div class="f-title">Higiénico</div><p style="font-size: 13px; color: #666;">Evita contacto con bacterias y polvo.</p></div>
+    <div class="f-item"><span class="f-icon">🚫</span><div class="f-title">Antiderrame</div><p style="font-size: 13px; color: #666;">Perfecto para traslados y neveras.</p></div>
+    <div class="f-item"><span class="f-icon">♻️</span><div class="f-title">Reutilizable</div><p style="font-size: 13px; color: #666;">Material duradero de alta calidad.</p></div>
+</div>
+
+<section id="galeria" class="gallery-section">
+    <h2 style="font-family: 'Bebas Neue'; font-size: 45px; text-align: center;">NUESTRO PRODUCTO</h2>
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="https://i.postimg.cc/wTndhbKy/Tapita-en-la-mesa.jpg" alt="Variedad de colores">
+        </div>
+        <div class="grid-item">
+            <img src="https://i.postimg.cc/cCb67MZT/Tapita-solo-verde.jpg" alt="La Tapita Verde">
+        </div>
+        <div class="grid-item" style="background: var(--light); display: flex; align-items: center; justify-content: center; padding: 20px; text-align: center;">
+            <p style="font-family: 'Bebas Neue'; font-size: 24px;"> COLORES SURTIDOS<br>PARA COMBINAR EN TU PEDIDO</p>
+        </div>
+    </div>
+</section>
+
+<section id="precios" class="order-section">
+    <div class="pricing-area">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 40px; margin-bottom: 30px;">TABLA MAYORISTA</h2>
+        <div class="price-card">
+            <div class="qty-label">1.500 UNIDADES a 4.999 UNIDADES</div>
+            <div class="price-val">"Pide tu Cotización"</div>
+        </div>
+        <div class="price-card" style="border-color: var(--red);">
+            <div class="qty-label">+5.000 UNIDADES</div>
+            <div class="price-val">CONSULTAR EL DESCUENTO!!</div>
+        </div>
+        <ul style="margin-top: 30px; font-size: 14px; color: #666; padding-left: 20px;">
+            <li>Precios incluyen flete Argentina - Caracas.</li>
+            <li>Entrega estimada: 30 días hábiles.</li>
+            <li>Se requiere 100% de pago para procesar importación.</li>
+        </ul>
+    </div>
+    
+    <div class="contact-area" id="contacto">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 40px; margin-bottom: 10px; color: var(--yellow);">SOLICITAR COTIZACIÓN</h2>
+        <p style="font-size: 14px; margin-bottom: 30px; color: #ccc;">Envíanos tus datos y te contactaremos por WhatsApp para formalizar la orden.</p>
+        
+        <div class="form-group">
+            <label>Nombre o Empresa</label>
+            <input type="text" id="name" class="form-input" placeholder="Ej: Distribuidora Caracas">
+        </div>
+        <div class="form-group">
+            <label>Cantidad (Mínimo 1.500)</label>
+            <input type="number" id="qty" class="form-input" value="1500">
+        </div>
+        <div class="form-group">
+            <label>Colores preferidos</label>
+            <input type="text" id="colors" class="form-input" placeholder="Surtidos / Colores específicos">
+        </div>
+
+        <button class="btn-wa" onclick="enviarPedido()">
+            <svg style="width:24px; height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.19 8.19 0 0 1-1.26-4.38c.01-4.54 3.7-8.24 8.25-8.24m-3.53 3.03c-.13 0-.35.05-.54.26-.19.21-.72.71-.72 1.73s.74 2.01.84 2.15c.1.13 1.46 2.22 3.53 3.12.5.21.88.34 1.18.44.5.16.95.14 1.31.08.4-.06 1.21-.5 1.38-.98.17-.48.17-.89.12-.98-.05-.09-.18-.13-.37-.23s-1.21-.6-1.4-.67c-.18-.07-.32-.1-.46.12-.13.21-.52.66-.63.8-.12.13-.23.15-.42.06-.19-.1-.81-.3-1.54-.95-.57-.5-1-1.13-1.11-1.32-.11-.19-.01-.29.08-.39.09-.08.19-.21.28-.32.09-.1.12-.18.18-.3.06-.13.03-.24-.01-.34-.05-.1-.46-1.1-.63-1.51-.17-.4-.35-.34-.48-.35h-.33Z"/></svg>
+            ENVIAR POR WHATSAPP
+        </button>
+        <p style="text-align: center; font-size: 11px; margin-top: 15px; color: #666; font-family: 'DM Mono';">IMPORTACIÓN 100% GARANTIZADA 🇦🇷 ✈️ 🇻🇪</p>
+    </div>
+</section>
+
+<footer style="background: #000; color: #555; padding: 40px; text-align: center; border-top: 1.5px solid var(--black);">
+    <p style="font-family: 'Bebas Neue'; font-size: 24px; color: #fff; margin-bottom: 10px;">La Tapita Mayorista</p>
+    <p style="font-size: 12px; font-family: 'DM Mono';">© 2026 — IMPORTACIONES LOMADA 2020 C.A.<br>RIF: J-00000000-0</p>
+</footer>
+
+<script>
+    function enviarPedido() {
+        const nombre = document.getElementById('name').value;
+        const cantidad = document.getElementById('qty').value;
+        const colores = document.getElementById('colors').value;
+        const telefono = "584242270068"; // Reemplaza con tu número real
+    
+        if(!nombre || cantidad < 1500) {
+            alert("Por favor completa tu nombre y recuerda que el pedido mínimo son 1.500 unidades.");
+            return;
+        }
+
+        const mensaje = `Hola! Soy ${nombre}. Me interesa un pedido mayorista de La Tapita:\n\n` +
+                        `- Cantidad: ${cantidad} unidades\n` +
+                        `- Colores: ${colores || 'Surtidos'}\n\n` +
+                        `¿Podrían enviarme la cotización formal?`;
+        
+        const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
